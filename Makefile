@@ -1,6 +1,8 @@
 SHELL=/bin/bash
 LINT_PATHS=my_gym/ *.py tests/
 
+all: format type lint
+
 pytest:
 	python3 -m pytest --cov-config .coveragerc --cov-report html --cov-report term --cov=. -v
 
