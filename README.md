@@ -10,3 +10,10 @@ Besides, the gym version is forced to 0.21.0 to avoid the large changes that hav
 ```
 pip install -e .
 ```
+
+## Use it
+
+import gym
+import my_gym
+
+env = gym.make("CartpoleContinuous-v1")  # or -v0
