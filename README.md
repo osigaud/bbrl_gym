@@ -17,5 +17,5 @@ pip install -e .
 import gym
 import my_gym
 
-env = gym.make("CartpoleContinuous-v1")  # or -v0
+env = gym.make("CartPoleContinuous-v1")  # or -v0 and then use your environment as usual
 ```
