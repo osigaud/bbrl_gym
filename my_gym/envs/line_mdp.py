@@ -1,5 +1,5 @@
 """
-Continuous action version of the classic cart-pole system implemented by Rich Sutton et al.
+Simple MDP with 5 states and 2 actions
 """
 
 import logging
@@ -14,10 +14,10 @@ logger = logging.getLogger(__name__)
 
 
 class LineMDPEnv(gym.Env):
-    def __init__(self, size):
+    def __init__(self):
         self.action_space = spaces.Discrete(2)
-        self.nb_states = size
-        self.observation_space = spaces.Discrete(size)
+        self.nb_states = 5
+        self.observation_space = spaces.Discrete(self.nb_states)
 
         self.seed()
         self.viewer = None
