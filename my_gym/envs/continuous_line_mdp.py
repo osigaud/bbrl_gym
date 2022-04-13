@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class ContinuousLineMDPEnv(gym.Env):
     def __init__(self):
         self.action_space = spaces.Discrete(2)
-        self.observation_space = spaces.Box(np.array([-1]), np.array([1])
+        self.observation_space = spaces.Box(np.array([-1]), np.array([1]))
 
         self.seed()
         self.viewer = None
