@@ -3,10 +3,8 @@ Simple MDP with 5 states and 2 actions
 """
 
 import logging
-import math
 
 import gym
-import numpy as np
 from gym import spaces
 from gym.utils import seeding
 
