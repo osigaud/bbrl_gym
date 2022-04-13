@@ -10,3 +10,8 @@ def test_cartpolecontinuous_v0():
 def test_cartpolecontinuous_v1():
     env = gym.make("CartpoleContinuous-v1")
     env.reset()
+
+
+def test_lineMDP_v0():
+    env = gym.make("LineMDP-v0")
+    env.reset()
