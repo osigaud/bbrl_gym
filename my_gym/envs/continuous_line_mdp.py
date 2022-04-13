@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class ContinuousLineMDPEnv(gym.Env):
     def __init__(self):
         self.action_space = spaces.Discrete(2)
-        self.observation_space = spaces.Box(np.array([-1]), np.array([1]))
+        self.observation_space = spaces.Box(np.array([0]), np.array([1]))
 
         self.seed()
         self.viewer = None
@@ -41,7 +41,7 @@ class ContinuousLineMDPEnv(gym.Env):
             self.state -= 0.2
             if self.state < 0:
                 done = True
-                reward = 1.0
+                reward = 2.0
 
         if not done:
             pass
@@ -55,12 +55,11 @@ class ContinuousLineMDPEnv(gym.Env):
                     "any further steps are undefined behavior."
                 )
                 self.steps_beyond_done += 1
-        next_state = np.array([self.state])
-        print(next_state)
+        next_state = np.array(self.state)
         return next_state, reward, done, {}
 
     def reset(self):
-        self.state = 0.3
+        self.state = 0.4
         self.steps_beyond_done = None
         return self.state
 
