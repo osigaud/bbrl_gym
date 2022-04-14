@@ -20,3 +20,7 @@ def test_lineMDP_v0():
 def test_lineMDPContinuous_v0():
     env = gym.make("LineMDPContinuous-v0")
     env.reset()
+
+def test_2DMDPContinuous_v0():
+    env = gym.make("LineMDPContinuous-v0")
+    env.reset()
