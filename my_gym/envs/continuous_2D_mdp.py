@@ -31,7 +31,7 @@ class Continuous2DMDPEnv(gym.Env):
     def step(self, action):
         done = False
         reward = 0.0
-        if action[0] == 0:
+        if action == 0:
             self.state[0] += 0.2
             if self.state[0] >= 1:
                 done = True
