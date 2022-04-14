@@ -3,7 +3,6 @@ Simple MDP with 5 states and 2 actions
 """
 
 import logging
-import math
 
 import gym
 import numpy as np
@@ -16,7 +15,7 @@ logger = logging.getLogger(__name__)
 class Continuous2DMDPEnv(gym.Env):
     def __init__(self):
         self.action_space = spaces.Discrete(2)
-        self.observation_space = spaces.Box(np.array([0 0]), np.array([1 1]))
+        self.observation_space = spaces.Box(np.array([0, 0]), np.array([1, 1]))
 
         self.seed()
         self.viewer = None
@@ -59,7 +58,7 @@ class Continuous2DMDPEnv(gym.Env):
         return next_state, reward, done, {}
 
     def reset(self):
-        self.state = [0.4 0.5]
+        self.state = [0.4, 0.5]
         self.steps_beyond_done = None
         return self.state
 
