@@ -1,5 +1,6 @@
 """
-Simple MDP with 5 states and 2 actions
+Simple MDP where the state is a real number in [0,1] and 2 actions (left or right) increase or decrease the state of 0.2
+The agent gets a reward of 10 if it reaches 1 and a reward of 2 if it reaches 0.
 """
 
 import logging
