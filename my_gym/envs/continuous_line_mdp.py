@@ -55,13 +55,13 @@ class ContinuousLineMDPEnv(gym.Env):
                     "any further steps are undefined behavior."
                 )
                 self.steps_beyond_done += 1
-        next_state = np.array(self.state)
+        next_state = np.array([self.state])
         return next_state, reward, done, {}
 
     def reset(self):
         self.state = 0.4
         self.steps_beyond_done = None
-        state = np.array(self.state)
+        state = np.array([self.state])
         print("reset", state)
         return state
 
