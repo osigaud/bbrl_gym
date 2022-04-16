@@ -61,9 +61,7 @@ class ContinuousLineMDPEnv(gym.Env):
     def reset(self):
         self.state = 0.4
         self.steps_beyond_done = None
-        state = np.array([self.state])
-        print("reset", state)
-        return state
+        return np.array([self.state])
 
     def render(self, mode="human", close=False):
         if close:
