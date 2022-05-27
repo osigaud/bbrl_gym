@@ -12,6 +12,9 @@ from gym.utils import seeding
 from mazemdp import create_random_maze
 from mazemdp.maze import build_maze
 
+from mazemdp.maze_plotter import show_videos
+from mazemdp.mdp import Mdp
+
 logger = logging.getLogger(__name__)
 
 
