@@ -1,4 +1,4 @@
 numpy>=1.19.1
 gym==0.21.0
 Box2D
-simplemaze @ git+https://github.com/osigaud/SimpleMazeMDP.git
+mazemdp @ git+https://github.com/osigaud/SimpleMazeMDP.git
