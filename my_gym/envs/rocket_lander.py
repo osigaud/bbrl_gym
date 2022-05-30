@@ -350,7 +350,7 @@ class RocketLanderEnv(gym.Env):
         x_distance = (pos.x - W / 2) / W
         y_distance = (pos.y - self.shipheight) / (H - self.shipheight)
 
-        angle = (self.lander.angle / np.pi) % 2
+        self.angle = (self.lander.angle / np.pi) % 2
         if angle > 1:
             angle -= 2
 
@@ -368,16 +368,12 @@ class RocketLanderEnv(gym.Env):
                           vel_l[1],
                           vel_a])
 
-        # # print state
-        # if self.viewer is not None:
-        #     print('\t'.join(["{:7.3}".format(s) for s in state]))
-
         # REWARD -------------------------------------------------------------------------------------------------------
 
         # state variables for reward
-        distance = np.linalg.norm((3 * x_distance, y_distance))  # weight x position more
-        speed = np.linalg.norm(vel_l)
-        groundcontact = self.legs[0].ground_contact or self.legs[1].ground_contact
+        self.distance = np.linalg.norm((3 * x_distance, y_distance))  # weight x position more
+        self.speed = np.linalg.norm(vel_l)
+        self.groundcontact = self.legs[0].ground_contact or self.legs[1].ground_contact
         brokenleg = (self.legs[0].joint.angle < 0 or self.legs[1].joint.angle > -0) and groundcontact
         outside = abs(pos.x - W / 2) > W / 2 or pos.y > H
         fuelcost = 0.1 * (0 * self.power + abs(self.force_dir)) / FPS
@@ -392,13 +388,6 @@ class RocketLanderEnv(gym.Env):
         if self.game_over:
             done = True
         else:
-            # reward shaping
-            shaping = -0.5 * (distance + speed + abs(angle) ** 2)
-            shaping += 0.1 * (self.legs[0].ground_contact + self.legs[1].ground_contact)
-            if self.prev_shaping is not None:
-                reward += shaping - self.prev_shaping
-            self.prev_shaping = shaping
-
             if landed:
                 self.landed_ticks += 1
             else:
