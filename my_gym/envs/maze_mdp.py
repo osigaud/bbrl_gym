@@ -12,8 +12,7 @@ from gym.utils import seeding
 from mazemdp import create_random_maze
 from mazemdp.maze import build_maze
 
-from mazemdp.maze_plotter import show_videos
-from mazemdp.mdp import Mdp
+from mazemdp.mdp import SimpleActionSpace
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +37,8 @@ class MazeMDPEnv(gym.Env):
 
         self.nb_states = nb_states
         self.observation_space = spaces.Discrete(nb_states)
-        self.action_space = spaces.Discrete(4)
+        self.action_space = SimpleActionSpace(nactions=4)
+        self.terminal_states = [nb_states]
 
         self.seed()
         self.np_random = None

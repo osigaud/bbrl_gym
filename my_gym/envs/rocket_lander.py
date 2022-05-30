@@ -351,13 +351,13 @@ class RocketLanderEnv(gym.Env):
         y_distance = (pos.y - self.shipheight) / (H - self.shipheight)
 
         self.angle = (self.lander.angle / np.pi) % 2
-        if angle > 1:
-            angle -= 2
+        if self.angle > 1:
+            self.angle -= 2
 
         state = [
             2 * x_distance,
             2 * (y_distance - 0.5),
-            angle,
+            self.angle,
             1.0 if self.legs[0].ground_contact else 0.0,
             1.0 if self.legs[1].ground_contact else 0.0,
             2 * (self.throttle - 0.5),
@@ -374,10 +374,10 @@ class RocketLanderEnv(gym.Env):
         self.distance = np.linalg.norm((3 * x_distance, y_distance))  # weight x position more
         self.speed = np.linalg.norm(vel_l)
         self.groundcontact = self.legs[0].ground_contact or self.legs[1].ground_contact
-        brokenleg = (self.legs[0].joint.angle < 0 or self.legs[1].joint.angle > -0) and groundcontact
+        brokenleg = (self.legs[0].joint.angle < 0 or self.legs[1].joint.angle > -0) and self.groundcontact
         outside = abs(pos.x - W / 2) > W / 2 or pos.y > H
         fuelcost = 0.1 * (0 * self.power + abs(self.force_dir)) / FPS
-        landed = self.legs[0].ground_contact and self.legs[1].ground_contact and speed < 0.1
+        landed = self.legs[0].ground_contact and self.legs[1].ground_contact and self.speed < 0.1
         done = False
 
         reward = -fuelcost
@@ -397,8 +397,8 @@ class RocketLanderEnv(gym.Env):
                 done = True
 
         if done:
-            reward += max(-1, 0 - 2 * (speed + distance + abs(angle) + abs(vel_a)))
-        elif not groundcontact:
+            reward += max(-1, 0 - 2 * (self.speed + self.distance + abs(self.angle) + abs(vel_a)))
+        elif not self.groundcontact:
             reward -= 0.25 / FPS
 
         reward = np.clip(reward, -1, 1)
