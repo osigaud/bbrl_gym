@@ -53,8 +53,8 @@ class MazeMDPEnv(gym.Env):
     def reset(self):
         self.mdp.reset()
 
-    def render(self, mode="human", close=False):
-        self.mdp.render()
+    def render(self, v=None, policy=None, agent_pos=-1, title="No Title")
+        self.mdp.render(v, policy, agent_pos, title)
 
     def new_render(self, title):
         self.mdp.new_render(title)
