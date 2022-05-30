@@ -35,7 +35,8 @@ class MazeMDPEnv(gym.Env):
                 self.mdp, nb_states = create_random_maze(width, height, ratio, hit)
             else:
                 self.mdp, nb_states = build_maze(width, height, kwargs['walls'], hit)
-            
+
+        self.nb_states = nb_states
         self.observation_space = spaces.Discrete(nb_states)
         self.action_space = spaces.Discrete(4)
 
