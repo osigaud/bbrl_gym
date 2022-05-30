@@ -55,3 +55,6 @@ class MazeMDPEnv(gym.Env):
 
     def render(self, mode="human", close=False):
         self.mdp.render()
+
+    def new_render(self, title):
+        self.mdp.new_render(title)
