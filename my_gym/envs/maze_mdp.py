@@ -39,6 +39,9 @@ class MazeMDPEnv(gym.Env):
         self.observation_space = spaces.Discrete(nb_states)
         self.action_space = SimpleActionSpace(nactions=4)
         self.terminal_states = [nb_states]
+        self.P = self.mdp.P
+        self.gamma = self.mdp.gamma
+        self.r = self.mdp.r
 
         self.seed()
         self.np_random = None
