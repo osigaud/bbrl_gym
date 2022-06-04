@@ -56,8 +56,20 @@ class MazeMDPEnv(gym.Env):
     def reset(self):
         self.mdp.reset()
 
-    def render(self, v=None, policy=None, agent_pos=-1, title="No Title"):
-        self.mdp.render(v, policy, agent_pos, title)
+    def render(self, **kwargs):
+         if kwargs == {}:
+             self.mdp.render(v, policy, agent_pos=-1, title="MDP studies")
+         else:
+            if 'v' not in kwargs.keys():
+                 v = None
+            else:
+                v = kwargs['v']
+            if 'policy' not in kwargs.keys():
+                policy = None
+            else:
+                policy = kwargs['policy']
+                
+            self.mdp.render(v, policy, agent_pos=-1, title="MDP studies")
 
     def new_render(self, title):
         self.mdp.new_render(title)
