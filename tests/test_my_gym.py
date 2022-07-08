@@ -9,7 +9,7 @@ def test_rocket_lander_v0():
 
 def test_mazemdp_v0():
     env = gym.make("MazeMDP-v0")
-    env = gym.make("MazeMDP-v0", kwargs={'width': 6, 'height': 5, 'ratio': 0.2})
+    env = gym.make("MazeMDP-v0", kwargs={"width": 6, "height": 5, "ratio": 0.2})
     env.reset()
 
 

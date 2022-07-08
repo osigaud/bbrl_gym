@@ -32,7 +32,12 @@ class ContinuousCartPoleEnv(gym.Env):
 
         # Angle limit set to 2 * theta_threshold_radians so failing observation is still within bounds
         high = np.array(
-            [self.x_threshold * 2, np.finfo(np.double).max, self.theta_threshold_radians * 2, np.finfo(np.double).max],
+            [
+                self.x_threshold * 2,
+                np.finfo(np.double).max,
+                self.theta_threshold_radians * 2,
+                np.finfo(np.double).max,
+            ],
             dtype=np.float32,
         )
 
@@ -56,9 +61,12 @@ class ContinuousCartPoleEnv(gym.Env):
 
         costheta = math.cos(theta)
         sintheta = math.sin(theta)
-        temp = (force + self.polemass_length * theta_dot * theta_dot * sintheta) / self.total_mass
+        temp = (
+            force + self.polemass_length * theta_dot * theta_dot * sintheta
+        ) / self.total_mass
         thetaacc = (self.gravity * sintheta - costheta * temp) / (
-            self.length * (4.0 / 3.0 - self.masspole * costheta * costheta / self.total_mass)
+            self.length
+            * (4.0 / 3.0 - self.masspole * costheta * costheta / self.total_mass)
         )
         xacc = temp - self.polemass_length * thetaacc * costheta / self.total_mass
         x = x + self.tau * x_dot
@@ -125,7 +133,12 @@ class ContinuousCartPoleEnv(gym.Env):
             self.carttrans = rendering.Transform()
             cart.add_attr(self.carttrans)
             self.viewer.add_geom(cart)
-            l, r, t, b = -polewidth / 2, polewidth / 2, polelen - polewidth / 2, -polewidth / 2
+            l, r, t, b = (
+                -polewidth / 2,
+                polewidth / 2,
+                polelen - polewidth / 2,
+                -polewidth / 2,
+            )
             pole = rendering.FilledPolygon([(l, b), (l, t), (r, t), (r, b)])
             pole.set_color(0.8, 0.6, 0.4)
             self.poletrans = rendering.Transform(translation=(0, axleoffset))

@@ -22,18 +22,18 @@ class MazeMDPEnv(gym.Env):
         if kwargs == {}:
             self.mdp, nb_states = create_random_maze(10, 10, 0.2)
         else:
-            kwargs = kwargs['kwargs']
-            width = kwargs['width']
-            height = kwargs['height']
-            if 'hit' not in kwargs.keys():
+            kwargs = kwargs["kwargs"]
+            width = kwargs["width"]
+            height = kwargs["height"]
+            if "hit" not in kwargs.keys():
                 hit = False
             else:
-                hit = kwargs['hit']
-            if 'walls' not in kwargs.keys():
-                ratio = kwargs['ratio']
+                hit = kwargs["hit"]
+            if "walls" not in kwargs.keys():
+                ratio = kwargs["ratio"]
                 self.mdp, nb_states = create_random_maze(width, height, ratio, hit)
             else:
-                self.mdp, nb_states = build_maze(width, height, kwargs['walls'], hit)
+                self.mdp, nb_states = build_maze(width, height, kwargs["walls"], hit)
 
         self.nb_states = nb_states
         self.observation_space = spaces.Discrete(nb_states)
@@ -57,18 +57,19 @@ class MazeMDPEnv(gym.Env):
         self.mdp.reset()
 
     def render(self, **kwargs):
-         if kwargs == {}:
-             self.mdp.render(v, policy, agent_pos=-1, title="MDP studies")
-         else:
-            if 'v' not in kwargs.keys():
-                 v = None
+        if kwargs == {}:
+            pass
+            # self.mdp.render(v, policy, agent_pos=-1, title="MDP studies")
+        else:
+            if "v" not in kwargs.keys():
+                v = None
             else:
-                v = kwargs['v']
-            if 'policy' not in kwargs.keys():
+                v = kwargs["v"]
+            if "policy" not in kwargs.keys():
                 policy = None
             else:
-                policy = kwargs['policy']
-                
+                policy = kwargs["policy"]
+
             self.mdp.render(v, policy, agent_pos=-1, title="MDP studies")
 
     def new_render(self, title):

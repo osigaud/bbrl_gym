@@ -10,6 +10,7 @@ from mazemdp.mdp import Mdp
 
 # This test does not work yet, it will be used to refactor mazeEnvs so that they can be used as any gym environment
 
+
 def get_policy_from_v(mdp: Mdp, v: np.ndarray) -> np.ndarray:
     # Outputs a policy given the state values
     policy = np.zeros(mdp.nb_states)  # initial state values are set to 0
@@ -74,7 +75,7 @@ def value_iteration_v(mdp: Mdp, render: bool = True) -> Tuple[np.ndarray, List[f
 
 def test_mazemdp_v0():
     env = gym.make("MazeMDP-v0")
-    env = gym.make("MazeMDP-v0", kwargs={'width': 6, 'height': 5, 'ratio': 0.2})
+    env = gym.make("MazeMDP-v0", kwargs={"width": 6, "height": 5, "ratio": 0.2})
     env.reset()
     v, v_list = value_iteration_v(env, render=True)
 

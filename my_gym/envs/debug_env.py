@@ -17,7 +17,9 @@ logger = logging.getLogger(__name__)
 class DebugVEnv(gym.Env):
     def __init__(self):
         self.action_space = spaces.Discrete(2)
-        self.observation_space = spaces.Box(np.array([0]), np.array([1]), dtype=np.float32)
+        self.observation_space = spaces.Box(
+            np.array([0]), np.array([1]), dtype=np.float32
+        )
 
         self.seed()
         self.viewer = None

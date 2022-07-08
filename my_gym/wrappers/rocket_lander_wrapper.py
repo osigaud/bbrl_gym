@@ -18,7 +18,9 @@ class RocketLanderWrapper(gym.Wrapper):
         next_state, reward, done, info = self.env.step(action)
         # reward shaping
         shaping = -0.5 * (self.env.distance + self.env.speed + abs(self.env.angle) ** 2)
-        shaping += 0.1 * (self.env.legs[0].ground_contact + self.env.legs[1].ground_contact)
+        shaping += 0.1 * (
+            self.env.legs[0].ground_contact + self.env.legs[1].ground_contact
+        )
         if self.prev_shaping is not None:
             reward += shaping - self.prev_shaping
         self.prev_shaping = shaping
