@@ -1,6 +1,6 @@
 """
 Simple MDP where the state is a real number in [0,1].
-Any action increases the state of 0.2
+Any action increases the state of 0.1
 The agent starts at 0.01 and gets a reward of 1 for any movement, until it moves out
 """
 
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class DebugVEnv(gym.Env):
     def __init__(self):
         self.action_space = spaces.Discrete(2)
-        self.observation_space = spaces.Box(np.array([0]), np.array([1]))
+        self.observation_space = spaces.Box(np.array([0]), np.array([1]), dtype=np.float32)
 
         self.seed()
         self.viewer = None
@@ -33,7 +33,7 @@ class DebugVEnv(gym.Env):
     def step(self, action):
         done = False
         reward = 1.0
-        self.state += 0.2
+        self.state += 0.1
         if self.state >= 1:
             done = True
         next_state = np.array([self.state])
