@@ -5,7 +5,6 @@ Simple Maze MDP
 import logging
 
 import gym
-import numpy as np
 from gym import spaces
 from gym.utils import seeding
 
@@ -56,21 +55,25 @@ class MazeMDPEnv(gym.Env):
     def reset(self):
         self.mdp.reset()
 
-    def render(self, **kwargs):
-        if kwargs == {}:
-            pass
-            # self.mdp.render(v, policy, agent_pos=-1, title="MDP studies")
-        else:
-            if "v" not in kwargs.keys():
-                v = None
-            else:
-                v = kwargs["v"]
-            if "policy" not in kwargs.keys():
-                policy = None
-            else:
-                policy = kwargs["policy"]
+    def draw_v_pi_a(self, v, policy, agent_pos, title="MDP studies"):
+        self.mdp.render(v, policy, agent_pos, title)
 
-            self.mdp.render(v, policy, agent_pos=-1, title="MDP studies")
+    def draw_v_pi(self, v, policy, title="MDP studies"):
+        agent_pos = None
+        self.mdp.render(v, policy, agent_pos, title)
 
-    def new_render(self, title):
+    def draw_v(self, v, title="MDP studies"):
+        policy = None
+        agent_pos = None
+        self.mdp.render(v, policy, agent_pos, title)
+
+    def draw_pi(self, policy, title="MDP studies"):
+        v = None
+        agent_pos = None
+        self.mdp.render(v, policy, agent_pos, title)
+
+    def init_draw(self, title):
         self.mdp.new_render(title)
+
+    def render(self, mode="human"):
+        pass

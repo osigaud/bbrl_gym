@@ -38,12 +38,12 @@ def value_iteration_v(mdp: Mdp, render: bool = True) -> Tuple[np.ndarray, List[f
     stop = False
 
     if render:
-        mdp.new_render("Value iteration V")
+        mdp.init_draw("Value iteration V")
 
     while not stop:
         v_old = v.copy()
         if render:
-            mdp.render(v, title="Value iteration V")
+            mdp.draw_v(v, title="Value iteration V")
 
         for x in range(mdp.nb_states):  # for each state x
             # Compute the value of the state x for each action u of the MDP action space
@@ -68,7 +68,7 @@ def value_iteration_v(mdp: Mdp, render: bool = True) -> Tuple[np.ndarray, List[f
 
     if render:
         policy = get_policy_from_v(mdp, v)
-        mdp.render(v, policy, title="Value iteration V")
+        mdp.draw_v_pi(v, policy, title="Value iteration V")
 
     return v, v_list
 
