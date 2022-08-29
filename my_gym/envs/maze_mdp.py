@@ -80,3 +80,6 @@ class MazeMDPEnv(gym.Env):
 
     def set_no_agent(self):
         self.mdp.has_state = False
+
+    def set_timeout(self, timeout):
+        self.mdp.timeout = timeout
