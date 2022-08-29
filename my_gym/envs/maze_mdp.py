@@ -77,3 +77,6 @@ class MazeMDPEnv(gym.Env):
 
     def render(self, mode="human"):
         pass
+
+    def set_no_agent(self):
+        self.mdp.has_state = False

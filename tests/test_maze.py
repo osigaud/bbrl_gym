@@ -3,7 +3,6 @@ import my_gym
 import numpy as np
 from typing import Tuple, List
 
-from mazemdp.mdp import Mdp
 
 from my_gym.envs.maze_mdp import MazeMDPEnv
 
@@ -73,9 +72,9 @@ def value_iteration_v(
 
 
 def test_mazemdp_v0():
-    env = gym.make("MazeMDP-v0")
     env = gym.make("MazeMDP-v0", kwargs={"width": 6, "height": 5, "ratio": 0.2})
     env.reset()
+    # env.set_no_agent()
     v, v_list = value_iteration_v(env, render=True)
 
 
