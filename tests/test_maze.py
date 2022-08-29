@@ -3,15 +3,12 @@ import my_gym
 import numpy as np
 from typing import Tuple, List
 
-from mazemdp.toolbox import egreedy, egreedy_loc, softmax
-from mazemdp.maze import build_maze, create_random_maze
-from mazemdp.maze_plotter import show_videos
 from mazemdp.mdp import Mdp
 
-# This test does not work yet, it will be used to refactor mazeEnvs so that they can be used as any gym environment
+from my_gym.envs.maze_mdp import MazeMDPEnv
 
 
-def get_policy_from_v(mdp: Mdp, v: np.ndarray) -> np.ndarray:
+def get_policy_from_v(mdp: MazeMDPEnv, v: np.ndarray) -> np.ndarray:
     # Outputs a policy given the state values
     policy = np.zeros(mdp.nb_states)  # initial state values are set to 0
     for x in range(mdp.nb_states):  # for each state x
@@ -31,7 +28,9 @@ def get_policy_from_v(mdp: Mdp, v: np.ndarray) -> np.ndarray:
 
 
 # ------------------------- Value Iteration with the V function ----------------------------#
-def value_iteration_v(mdp: Mdp, render: bool = True) -> Tuple[np.ndarray, List[float]]:
+def value_iteration_v(
+    mdp: MazeMDPEnv, render: bool = True
+) -> Tuple[np.ndarray, List[float]]:
     # Value Iteration using the state value v
     v = np.zeros(mdp.nb_states)  # initial state values are set to 0
     v_list = []
