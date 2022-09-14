@@ -17,6 +17,8 @@ logger = logging.getLogger(__name__)
 
 
 class MazeMDPEnv(gym.Env):
+    metadata = {"render.modes": ["rgb_array", "human"]}
+
     def __init__(self, **kwargs):
         if kwargs == {}:
             self.mdp, nb_states = create_random_maze(10, 10, 0.2)
@@ -76,7 +78,7 @@ class MazeMDPEnv(gym.Env):
         self.mdp.new_render(title)
 
     def render(self, mode="human"):
-        pass
+        return self.mdp.new_render(title="Simple Maze", mode=mode)
 
     def set_no_agent(self):
         self.mdp.has_state = False
