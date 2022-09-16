@@ -3,7 +3,7 @@ Simple Maze MDP
 """
 
 import logging
-from typing import Callable, Protocol
+from typing import Callable
 
 import gym
 from gym import spaces
