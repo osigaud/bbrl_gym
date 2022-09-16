@@ -3,6 +3,7 @@ Simple Maze MDP
 """
 
 import logging
+from typing import Callable, Protocol
 
 import gym
 from gym import spaces
@@ -17,6 +18,11 @@ logger = logging.getLogger(__name__)
 
 
 class MazeMDPEnv(gym.Env):
+    metadata = {
+        "render.modes": ["rgb_array", "human"],
+        "video.frames_per_second": 5
+    }
+
     def __init__(self, **kwargs):
         if kwargs == {}:
             self.mdp, nb_states = create_random_maze(10, 10, 0.2)
@@ -44,6 +50,21 @@ class MazeMDPEnv(gym.Env):
 
         self.seed()
         self.np_random = None
+        self.title = f"Simple maze {width}x{height}"
+
+        self.set_render_func(self.init_draw, lambda draw: draw(self.title))
+
+    def set_title(self, title):
+        self.title = title
+
+    def set_render_func(self, render_func: Callable, callable: Callable):
+        """Sets the render mode"""
+        def call(mode: str):
+            def draw(*args, **kwargs):
+                return render_func(*args, **kwargs, mode=mode)
+            return callable(draw)
+
+        self.render_func = call
 
     def seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -51,33 +72,35 @@ class MazeMDPEnv(gym.Env):
 
     def step(self, action):
         return self.mdp.step(action)
-
+        
     def reset(self, **kwargs):
         return self.mdp.reset(kwargs)
 
-    def draw_v_pi_a(self, v, policy, agent_pos, title="MDP studies"):
-        self.mdp.render(v, policy, agent_pos, title)
+    # Drawing functions
+    def draw_v_pi_a(self, v, policy, agent_pos, title="MDP studies", mode="legacy"):
+        return self.mdp.render(v, policy, agent_pos, title)
 
-    def draw_v_pi(self, v, policy, title="MDP studies"):
+    def draw_v_pi(self, v, policy, title="MDP studies", mode="legacy"):
         agent_pos = None
-        self.mdp.render(v, policy, agent_pos, title)
+        return self.mdp.render(v, policy, agent_pos, title, mode=mode)
 
-    def draw_v(self, v, title="MDP studies"):
+    def draw_v(self, v, mode="legacy", title="MDP studies"):
         policy = None
         agent_pos = None
-        self.mdp.render(v, policy, agent_pos, title)
+        return self.mdp.render(v, policy, agent_pos, title, mode=mode)
 
-    def draw_pi(self, policy, title="MDP studies"):
+    def draw_pi(self, policy, title="MDP studies", mode="legacy"):
         v = None
         agent_pos = None
-        self.mdp.render(v, policy, agent_pos, title)
+        return self.mdp.render(v, policy, agent_pos, title, mode=mode)
 
-    def init_draw(self, title):
-        self.mdp.new_render(title)
+    def init_draw(self, title, mode="legacy"):
+        return self.mdp.new_render(title, mode=mode)
 
     def render(self, mode="human"):
-        pass
-
+        r = self.render_func(mode)
+        return r
+        
     def set_no_agent(self):
         self.mdp.has_state = False
 
