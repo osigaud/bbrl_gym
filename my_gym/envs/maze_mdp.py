@@ -3,7 +3,7 @@ Simple Maze MDP
 """
 
 import logging
-from typing import Protocol
+from typing import Callable, Protocol
 
 import gym
 from gym import spaces
@@ -17,11 +17,11 @@ from mazemdp.mdp import SimpleActionSpace
 logger = logging.getLogger(__name__)
 
 
-class RenderProtocol(Protocol):
-    def __call__(self, mode="human"): ...
-
 class MazeMDPEnv(gym.Env):
-    metadata = {"render.modes": ["rgb_array", "human"]}
+    metadata = {
+        "render.modes": ["rgb_array", "human"],
+        "video.frames_per_second": 5
+    }
 
     def __init__(self, **kwargs):
         if kwargs == {}:
@@ -51,14 +51,20 @@ class MazeMDPEnv(gym.Env):
         self.seed()
         self.np_random = None
         self.title = f"Simple maze {width}x{height}"
-        self.render_func = lambda mode: self.init_draw(self.title, mode=mode)
 
-    def setTitle(self, title):
+        self.set_render_func(self.init_draw, lambda draw: draw(self.title))
+
+    def set_title(self, title):
         self.title = title
 
-    def set_render_func(self, render_func: RenderProtocol):
+    def set_render_func(self, render_func: Callable, callable: Callable):
         """Sets the render mode"""
-        self.render_func = render_func
+        def call(mode: str):
+            def draw(*args, **kwargs):
+                return render_func(*args, **kwargs, mode=mode)
+            return callable(draw)
+
+        self.render_func = call
 
     def seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -66,13 +72,13 @@ class MazeMDPEnv(gym.Env):
 
     def step(self, action):
         return self.mdp.step(action)
-
+        
     def reset(self, **kwargs):
         return self.mdp.reset(kwargs)
 
     # Drawing functions
     def draw_v_pi_a(self, v, policy, agent_pos, title="MDP studies", mode="legacy"):
-        return  self.mdp.render(v, policy, agent_pos, title)
+        return self.mdp.render(v, policy, agent_pos, title)
 
     def draw_v_pi(self, v, policy, title="MDP studies", mode="legacy"):
         agent_pos = None
@@ -92,8 +98,9 @@ class MazeMDPEnv(gym.Env):
         return self.mdp.new_render(title, mode=mode)
 
     def render(self, mode="human"):
-        return self.render_func(mode=mode)
-
+        r = self.render_func(mode)
+        return r
+        
     def set_no_agent(self):
         self.mdp.has_state = False
 
