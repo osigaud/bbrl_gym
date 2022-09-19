@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="bbrl_gym",
-    packages=[package for package in find_packages() if package.startswith("my_gym")],
+    packages=[package for package in find_packages() if package.startswith("my_gym") or package.startswith("bbrl_gym")],
     url="https://github.com/osigaud/my_gym",
     version="0.1.0",
     tests_require=["pytest==4.4.1"],

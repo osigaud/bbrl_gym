@@ -1,5 +1,5 @@
 import gym
-import my_gym
+import bbrl_gym
 
 
 def test_rocket_lander_v0():
@@ -14,12 +14,12 @@ def test_mazemdp_v0():
 
 
 def test_cartpolecontinuous_v0():
-    env = gym.make("CartpoleContinuous-v0")
+    env = gym.make("CartPoleContinuous-v0")
     env.reset()
 
 
 def test_cartpolecontinuous_v1():
-    env = gym.make("CartpoleContinuous-v1")
+    env = gym.make("CartPoleContinuous-v1")
     env.reset()
 
 
