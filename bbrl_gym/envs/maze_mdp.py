@@ -76,7 +76,7 @@ class MazeMDPEnv(gym.Env):
         return self.mdp.step(action)
         
     def reset(self, **kwargs):
-        return self.mdp.reset(kwargs)
+        return self.mdp.reset(**kwargs)
 
     # Drawing functions
     def draw_v_pi_a(self, v, policy, agent_pos, title="MDP studies", mode="legacy"):
