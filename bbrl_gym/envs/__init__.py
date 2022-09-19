@@ -1,5 +1,3 @@
-# Preserves compatibility with old my_gym package
-
 from bbrl_gym.envs.continuous_cartpole import ContinuousCartPoleEnv
 from bbrl_gym.envs.line_mdp import LineMDPEnv
 from bbrl_gym.envs.continuous_line_mdp import ContinuousLineMDPEnv

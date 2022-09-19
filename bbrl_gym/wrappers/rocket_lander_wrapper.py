@@ -1,5 +1,4 @@
 import gym
-import bbrl_gym
 
 
 class RocketLanderWrapper(gym.Wrapper):
@@ -13,6 +12,7 @@ class RocketLanderWrapper(gym.Wrapper):
 
     def reset(self):
         self.prev_shaping = None
+        return self.env.reset()
 
     def step(self, action):
         next_state, reward, done, info = self.env.step(action)
@@ -26,9 +26,3 @@ class RocketLanderWrapper(gym.Wrapper):
         self.prev_shaping = shaping
 
         return next_state, reward, done, info
-
-
-env_id = "RocketLander-v0"
-rl_env = gym.make(env_id)
-obs = rl_env.reset()
-print(obs.shape)
