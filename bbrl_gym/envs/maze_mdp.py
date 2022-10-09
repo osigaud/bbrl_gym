@@ -80,7 +80,7 @@ class MazeMDPEnv(gym.Env):
 
     # Drawing functions
     def draw_v_pi_a(self, v, policy, agent_pos, title="MDP studies", mode="legacy"):
-        return self.mdp.render(v, policy, agent_pos, title)
+        return self.mdp.render(v, policy, agent_pos, title, mode=mode)
 
     def draw_v_pi(self, v, policy, title="MDP studies", mode="legacy"):
         agent_pos = None
