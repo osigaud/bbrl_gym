@@ -4,7 +4,7 @@ setup(
     name="bbrl_gym",
     packages=[package for package in find_packages() if package.startswith("my_gym") or package.startswith("bbrl_gym")],
     url="https://github.com/osigaud/my_gym",
-    version="0.1.1",
+    version="0.1.2",
     tests_require=["pytest==4.4.1"],
     test_suite="tests",
     author="Olivier Sigaud",
