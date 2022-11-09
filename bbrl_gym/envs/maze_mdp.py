@@ -18,16 +18,13 @@ logger = logging.getLogger(__name__)
 
 
 class MazeMDPEnv(gym.Env):
-    metadata = {
-        "render.modes": ["rgb_array", "human"],
-        "video.frames_per_second": 5
-    }
+    metadata = {"render.modes": ["rgb_array", "human"], "video.frames_per_second": 5}
 
     def __init__(self, **kwargs):
         if kwargs == {}:
             width = 10
             height = 10
-            self.mdp, nb_states = create_random_maze(10, 10, 0.2)
+            self.mdp, nb_states, coord_x, coord_y = create_random_maze(10, 10, 0.2)
         else:
             kwargs = kwargs["kwargs"]
             width = kwargs["width"]
@@ -38,11 +35,17 @@ class MazeMDPEnv(gym.Env):
                 hit = kwargs["hit"]
             if "walls" not in kwargs.keys():
                 ratio = kwargs["ratio"]
-                self.mdp, nb_states = create_random_maze(width, height, ratio, hit)
+                self.mdp, nb_states, coord_x, coord_y = create_random_maze(
+                    width, height, ratio, hit
+                )
             else:
-                self.mdp, nb_states = build_maze(width, height, kwargs["walls"], hit)
+                self.mdp, nb_states, coord_x, coord_y = build_maze(
+                    width, height, kwargs["walls"], hit
+                )
 
         self.nb_states = nb_states
+        self.coord_x = coord_x
+        self.coord_y = coord_y
         self.observation_space = spaces.Discrete(nb_states)
         self.action_space = SimpleActionSpace(nactions=4)
         self.terminal_states = [nb_states - 1]
@@ -61,9 +64,11 @@ class MazeMDPEnv(gym.Env):
 
     def set_render_func(self, render_func: Callable, callable: Callable):
         """Sets the render mode"""
+
         def call(mode: str):
             def draw(*args, **kwargs):
                 return render_func(*args, **kwargs, mode=mode)
+
             return callable(draw)
 
         self.render_func = call
@@ -74,7 +79,7 @@ class MazeMDPEnv(gym.Env):
 
     def step(self, action):
         return self.mdp.step(action)
-        
+
     def reset(self, **kwargs):
         return self.mdp.reset(**kwargs)
 
@@ -102,7 +107,7 @@ class MazeMDPEnv(gym.Env):
     def render(self, mode="human"):
         r = self.render_func(mode)
         return r
-        
+
     def set_no_agent(self):
         self.mdp.has_state = False
 
