@@ -47,7 +47,7 @@ class MazeMDPEnv(gym.Env):
         self.coord_x = coord_x
         self.coord_y = coord_y
         self.observation_space = spaces.Discrete(nb_states)
-        self.action_space = SimpleActionSpace(nactions=4)
+        self.action_space = spaces.Discrete(4)
         self.terminal_states = [nb_states - 1]
         self.P = self.mdp.P
         self.gamma = self.mdp.gamma
