@@ -1,4 +1,4 @@
 numpy>=1.19.1
 gym==0.21.0
 box2d-py
-mazemdp==0.1.1
+mazemdp==0.7.1
