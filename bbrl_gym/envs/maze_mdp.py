@@ -12,8 +12,6 @@ from gym.utils import seeding
 from mazemdp import create_random_maze
 from mazemdp.maze import build_maze
 
-from mazemdp.mdp import SimpleActionSpace
-
 logger = logging.getLogger(__name__)
 
 
