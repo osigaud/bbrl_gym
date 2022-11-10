@@ -13,4 +13,6 @@ setup(
     long_description=open("README.md").read(),
     long_description_content_type='text/markdown',
     install_requires=open("requirements.txt", "r").read().splitlines(),
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
 )
