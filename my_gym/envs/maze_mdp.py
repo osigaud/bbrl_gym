@@ -1,1 +1,1 @@
-from bbrl_gym.envs.maze_mdp import *
+from bbrl_gym.envs.maze_mdp import MazeMDPEnv

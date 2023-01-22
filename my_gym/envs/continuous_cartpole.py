@@ -1,1 +1,1 @@
-from bbrl_gym.envs.continuous_cartpole import *
+from bbrl_gym.envs.continuous_cartpole import ContinuousCartPoleEnv

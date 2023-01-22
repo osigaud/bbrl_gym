@@ -1,1 +1,1 @@
-from bbrl_gym.envs.line_mdp import *
+from bbrl_gym.envs.line_mdp import LineMDPEnv
